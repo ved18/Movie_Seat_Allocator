@@ -28,6 +28,11 @@ bool readInput(string filename, vector<reservation> &reservations)
         File >> tempReservation.id >> tempReservation.totalSeats;
         // cout << tempReservation.id << " " << tempReservation.totalSeats << endl;
 
+        if (tempReservation.totalSeats <= 0)
+        {
+            cout << "Invalid entry in  the file." << endl;
+            return false;
+        }
         reservations.push_back(tempReservation);
         count++;
     }
