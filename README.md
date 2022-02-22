@@ -17,7 +17,7 @@ safety.
 7. Priority is given to the farther seats and then the middle seats.
 8. If seats are not available for current reservation order, but we can accomodate next order then we allocate seats to next reservation even if the latter has higher timestamp.
 
-## Solution:
+## Expected Solution:
 
 The algorithm assigns seats greedily to the customers on basis of first come first serve strategy.
 The customer who has booked the tickets first will get the better seat i.e far from the screen and in middle of the row to get a better view.
