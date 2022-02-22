@@ -4,7 +4,7 @@
 
 #define MAXROWS 10
 #define MAXCOLS 20
-#define MAXRESERVATIONS 50
+#define MAXSEATS 50
 
 using namespace std;
 
@@ -25,8 +25,8 @@ void initRows(vector<row> &rows)
 {
     for (int i = 0; i < rows.size(); i++)
     {
-        for (int i = 0; i < MAXCOLS; i++)
-            seats[i] = false;
+        for (int j = 0; j < MAXCOLS; j++)
+            rows[i].seats[j] = false;
         rows[i].available = 5;
     }
 }
@@ -54,11 +54,7 @@ void readInput(string filename, vector<reservation> &reservations)
     while (!File.eof())
     {
         reservation tempReservation;
-        if (count > MAXRESERVATIONS)
-        {
-            cout << "Max reservation capacity reached." << endl;
-            break;
-        }
+
         File >> tempReservation.id >> tempReservation.totalSeats;
         // cout << tempReservation.id << " " << tempReservation.totalSeats << endl;
 
@@ -71,35 +67,42 @@ void readInput(string filename, vector<reservation> &reservations)
     return;
 }
 
-// void allocateSeat(vector<reservation> &reservations, vector<row> &rows)
-// {
-//     int n = reservations.size();
-//     for (int reservationItr = 0; reservationItr < n; reservationItr++)
-//     {
-//         int totalSeats = reservations[reservationItr].totalSeats;
-//         char temp = 'J';
-//         int rowItr = 0;
+void allocateSeat(vector<reservation> &reservations, vector<row> &rows)
+{
+    int n = reservations.size();
+    int allocatedSeats = 0;
+    char curRow = 'J';
+    int rowItr = 0;
+    int seatItr = 0;
+    for (int reservationItr = 0; reservationItr < n; reservationItr++)
+    {
+        int totalSeats = reservations[reservationItr].totalSeats;
+        if (totalSeats + allocatedSeats > MAXSEATS)
+        {
+            cout << "";
+            return;
+        }
+        allocatedSeats += totalSeats;
+        while (totalSeats--)
+        {
+            rows[rowItr].available--;
+            rows[rowItr].seats[seatItr] = true;
 
-//         for (int rowItr = 0; rowItr < rows.size(); rowItr++)
-//         {
-//             int seatItr;
-//             if (rowItr % 2 == 0)
-//                 seatItr = 0;
-//             else
-//                 seatItr = 1;
-//             while(true)
-//             {
-//                 if (rows[rowItr].seats[seatItr] == false)
-//                 {
-//                     string tempSeat = temp + seatItr.toString();
-//                     reservations[reservationItr].seatAllocations.push_back(tempSeat);
-//                 }
-//                 seatItr+=2;
-//             }
-
-//         }
-//     }
-// }
+            string allocatedSeat = curRow + to_string(seatItr);
+            reservations[reservationItr].seatAllocations.push_back(allocatedSeat);
+            seatItr += 4;
+            if (rows[rowItr].available == 0)
+            {
+                rowItr++;
+                if (rowItr % 2 == 0)
+                    seatItr = 0;
+                else
+                    seatItr = 1;
+                curRow--;
+            }
+        }
+    }
+}
 int main(int argc, char **argv)
 {
     vector<row> rows(MAXROWS);
@@ -108,5 +111,14 @@ int main(int argc, char **argv)
     readInput(argv[1], reservations);
     for (int i = 0; i < reservations.size(); i++)
         cout << reservations[i].id << " " << reservations[i].totalSeats << endl;
+    allocateSeat(reservations, rows);
+    for (int i = 0; i < reservations.size(); i++)
+    {
+        for (int j = 0; j < reservations[i].seatAllocations.size(); j++)
+        {
+            cout << reservations[i].seatAllocations[j] << " ";
+        }
+        cout << endl;
+    }
     return 0;
 }
