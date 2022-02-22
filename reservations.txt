@@ -1,0 +1,4 @@
+R1234  J0 
+R3241  J4  J8 
+R2342  J12  J16  I1  I5  I9 
+R2343  Could not allocate reservation. 
