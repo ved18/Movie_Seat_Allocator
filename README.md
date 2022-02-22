@@ -38,7 +38,7 @@ make
 Example:
 
 ```bash
-./main test.txt
+./main tests/test1
 ```
 
 3. Clean
@@ -46,3 +46,7 @@ Example:
 ```
 make clean
 ```
+
+## NOTE:
+
+All test files are present in the tests directory
