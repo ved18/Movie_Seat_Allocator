@@ -15,6 +15,7 @@ safety.
 5. Screen is nearest to row A and farthest to row J.
 6. Middle seats provide a better experience than the corner seats.
 7. Priority is given to the farther seats and then the middle seats.
+8. If seats are not available for current reservation order, but we can accomodate next order then we allocate seats to next reservation even if the latter has higher timestamp.
 
 ## Solution:
 

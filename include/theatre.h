@@ -10,12 +10,15 @@
 
 using namespace std;
 
+//data structure to store each row info in the theatre.
 typedef struct row
 {
     bool seats[MAXCOLS];
-    int available;
+    int available; //no of available seats in the row
 } row;
 
+//data structure to store reservation details
+//reservation id, total seats to be booked, Final seats allocated
 typedef struct reservation
 {
     string id;
@@ -24,5 +27,6 @@ typedef struct reservation
 } reservation;
 
 void initRows(vector<row> &rows);
-vector<reservation> allocateSeat(vector<reservation> &reservations, vector<row> &rows);
+void allocateSeat(vector<reservation> &reservations, vector<row> &rows);
+
 #endif
