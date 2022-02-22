@@ -50,3 +50,4 @@ make clean
 ## NOTE:
 
 All test files are present in the tests directory
+The output is present in reservations.txt in the root directory.

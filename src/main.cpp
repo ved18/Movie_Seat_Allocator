@@ -18,5 +18,7 @@ int main(int argc, char **argv)
         cout << reservations[i].id << " " << reservations[i].totalSeats << endl;
     allocateSeat(reservations, rows);
     printOutput(reservations);
+    cout << "Pease find the output in reservations.txt" << endl;
+
     return 0;
 }
